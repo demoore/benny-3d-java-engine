@@ -2,10 +2,11 @@ package com.base.engine;
 
 
 
-import org.lwjgl.opengl.GL30;
+import org.lwjgl.opengl.GL30.*;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.*;
+import static org.lwjgl.opengl.GL32.*;
 
 /**
  * Created by dylan on 2014-03-23.
@@ -37,9 +38,13 @@ public class RenderUtil {
         glEnable(GL_CULL_FACE);
         glEnable(GL_DEPTH_TEST);
 
-        //TODO: Depth clamp for later
+        glEnable(GL_DEPTH_CLAMP);
         glEnable(GL_TEXTURE_2D);
-        glEnable(GL_FRAMEBUFFER_SRGB);
+
+    }
+
+    public static void setClearColor(Vector3f color){
+        glClearColor(color.getX(), color.getY(), color.getZ(), 1.0f);
     }
 
     public static String getOpenGLVersion(){
@@ -47,4 +52,7 @@ public class RenderUtil {
     }
 
 
+    public static void unbindTextures() {
+        glBindTexture(GL_TEXTURE_2D, 0);
+    }
 }

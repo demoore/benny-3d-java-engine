@@ -5,9 +5,10 @@ package com.base.engine;
  */
 public class Vertex {
 
-    public static final int SIZE = 5;
+    public static final int SIZE = 8;
 
     private Vector3f position;
+    private Vector3f normal;
     private Vector2f textureCoordinates;
 
 
@@ -15,8 +16,21 @@ public class Vertex {
         this(inPosition, new Vector2f(0,0));    }
 
     public Vertex(Vector3f inPosition, Vector2f inTextureCoordinates) {
-        this.position = inPosition;
-        this.textureCoordinates = inTextureCoordinates;
+       this(inPosition, inTextureCoordinates, new Vector3f(0,0,0));
+    }
+
+    public Vertex(Vector3f position, Vector2f textureCoordinates, Vector3f normal) {
+        this.position = position;
+        this.normal = normal;
+        this.textureCoordinates = textureCoordinates;
+    }
+
+    public Vector3f getNormal() {
+        return normal;
+    }
+
+    public void setNormal(Vector3f normal) {
+        this.normal = normal;
     }
 
     public Vector3f getPosition() {

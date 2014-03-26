@@ -1,7 +1,5 @@
 package com.base.engine;
 
-import java.util.Arrays;
-
 /**
  * Created by dylan on 2014-03-23.
  */
@@ -40,10 +38,10 @@ public class Matrix4f {
     public Matrix4f initCamera(Vector3f forward, Vector3f up) {
 
         Vector3f f = forward;
-        f.normalize();
+        f.normalized();
 
         Vector3f right = up;
-        right.normalize();
+        right.normalized();
         right = right.cross(f);
 
         Vector3f newUp = f.cross(right);
@@ -111,7 +109,15 @@ public class Matrix4f {
     }
 
     public float[][] getMatrix() {
-        return matrix;
+        float [][] result = new float[4][4];
+
+        for(int i = 0; i < MATRIX_SIZE; i++){
+            for(int j = 0; j < MATRIX_SIZE; j++){
+                result[i][j]  = matrix[i][j];
+            }
+        }
+
+        return result;
     }
 
     public void setMatrix(float[][] matrix) {
