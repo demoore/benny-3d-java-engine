@@ -1,0 +1,28 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/lwjgl-platform-2.9.1-natives-osx.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lwjgl_util-2.9.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jinput-2.0.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slick-util.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lwjgl_util-2.9.1-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jutils-1.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lwjgl-platform-2.9.1-natives-windows.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jinput-platform-2.0.5-natives-windows.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jorbis-0.0.15.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jinput-platform-2.0.5-natives-linux.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lwjgl-2.9.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lwjgl_util-2.9.1-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lwjgl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lwjgl_util.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lwjgl_util_applet.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slick-util-src.zip!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jogg-0.0.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lwjgl-platform-2.9.1-natives-linux.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jinput-platform-2.0.5-natives-osx.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/ibxm.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
