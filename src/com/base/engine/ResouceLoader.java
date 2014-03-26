@@ -1,15 +1,31 @@
 package com.base.engine;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import org.newdawn.slick.opengl.TextureLoader;
+
+import java.io.*;
 import java.util.ArrayList;
 
 /**
  * Created by dylan on 2014-03-23.
  */
 public class ResouceLoader {
+
+    public static Texture loadTexture(String fileName){
+        String[] splitArray = fileName.split("\\.");
+        String extension = splitArray[splitArray.length -1];
+
+        try {
+            int id = TextureLoader.getTexture(extension, new FileInputStream(new File("./res/textures/" + fileName))).getTextureID();
+
+            return new Texture(id);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+        return null;
+    }
+
     public static String loadShader(String fileName){
         StringBuilder shaderSource = new StringBuilder();
         BufferedReader shaderReader;
@@ -68,9 +84,15 @@ public class ResouceLoader {
                 }
 
                 if(tokens[0].equals("f")){  //FACES
-                    indices.add(Integer.parseInt(tokens[1]) - 1);
-                    indices.add(Integer.parseInt(tokens[2]) - 1);
-                    indices.add(Integer.parseInt(tokens[3]) - 1);
+                    indices.add(Integer.parseInt(tokens[1].split("/")[0]) - 1);
+                    indices.add(Integer.parseInt(tokens[2].split("/")[0]) - 1);
+                    indices.add(Integer.parseInt(tokens[3].split("/")[0]) - 1);
+
+                    if(tokens.length > 4){
+                        indices.add(Integer.parseInt(tokens[1].split("/")[0]) - 1);
+                        indices.add(Integer.parseInt(tokens[3].split("/")[0]) - 1);
+                        indices.add(Integer.parseInt(tokens[4].split("/")[0]) - 1);
+                    }
                 }
             }
             meshReader.close();

@@ -37,6 +37,25 @@ public class Matrix4f {
         return this;
     }
 
+    public Matrix4f initCamera(Vector3f forward, Vector3f up) {
+
+        Vector3f f = forward;
+        f.normalize();
+
+        Vector3f right = up;
+        right.normalize();
+        right = right.cross(f);
+
+        Vector3f newUp = f.cross(right);
+
+        matrix[0][0] = right.getX(); matrix[0][1] = right.getY(); matrix[0][2] = right.getZ(); matrix[0][3] = 0;
+        matrix[1][0] = newUp.getX(); matrix[1][1] = newUp.getY(); matrix[1][2] = newUp.getZ(); matrix[1][3] = 0;
+        matrix[2][0] = f.getX();     matrix[2][1] = f.getY();     matrix[2][2] = f.getZ();     matrix[2][3] = 0;
+        matrix[3][0] = 0;            matrix[3][1] = 0;            matrix[3][2] = 0;            matrix[3][3] = 1;
+
+        return this;
+    }
+
     public Matrix4f initRotation(float x, float y, float z) {
 
         Matrix4f rx = new Matrix4f();
@@ -127,6 +146,21 @@ public class Matrix4f {
         matrix[1][0] = 0; matrix[1][1] = y; matrix[1][2] = 0; matrix[1][3] = 0;
         matrix[2][0] = 0; matrix[2][1] = 0; matrix[2][2] = z; matrix[2][3] = 0;
         matrix[3][0] = 0; matrix[3][1] = 0; matrix[3][2] = 0; matrix[3][3] = 1;
+
+        return this;
+    }
+
+
+    public Matrix4f initProjection(float fov, float width, float height, float zNear, float zFar){
+
+        float aspectRatio = width/height;
+        float tanHalfFOV = (float)Math.tan(Math.toRadians(fov / 2));
+        float zRange = zNear - zFar;
+
+        matrix[0][0] = 1.0f / (tanHalfFOV * aspectRatio); matrix[0][1] = 0;                 matrix[0][2] = 0;                      matrix[0][3] = 0;
+        matrix[1][0] = 0;                                 matrix[1][1] = 1.0f / tanHalfFOV; matrix[1][2] = 0;                      matrix[1][3] = 0;
+        matrix[2][0] = 0;                                 matrix[2][1] = 0;                 matrix[2][2] = (-zNear - zFar)/zRange; matrix[2][3] = 2 * zFar * zNear / zRange;
+        matrix[3][0] = 0;                                 matrix[3][1] = 0;                 matrix[3][2] = 1;                      matrix[3][3] = 0;
 
         return this;
     }
