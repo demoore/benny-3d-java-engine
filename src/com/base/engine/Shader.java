@@ -2,6 +2,10 @@ package com.base.engine;
 
 import org.lwjgl.opengl.GL32;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 
 import static org.lwjgl.opengl.GL20.*;
@@ -75,6 +79,20 @@ public class Shader {
         addProgram(text, GL32.GL_GEOMETRY_SHADER);
     }
 
+
+    public void addVertexShaderFromFile(String text) {
+        addProgram(loadShader(text), GL_VERTEX_SHADER);
+
+    }
+
+    public void addFragmentShaderFromFile(String text) {
+        addProgram(loadShader(text), GL_FRAGMENT_SHADER);
+    }
+
+    public void addGeometryShaderFromFile(String text) {
+        addProgram(loadShader(text), GL32.GL_GEOMETRY_SHADER);
+    }
+
     private void addProgram(String text, int type) {
         int shader = glCreateShader(type);
 
@@ -110,5 +128,27 @@ public class Shader {
             System.exit(1);
         }
 
+    }
+
+    private static String loadShader(String fileName){
+        StringBuilder shaderSource = new StringBuilder();
+        BufferedReader shaderReader;
+
+        try {
+            shaderReader = new BufferedReader(new FileReader("./res/shaders/" + fileName));
+            String line;
+            while((line = shaderReader.readLine()) != null){
+                shaderSource.append(line).append("\n");
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.exit(1);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+
+        return shaderSource.toString();
     }
 }

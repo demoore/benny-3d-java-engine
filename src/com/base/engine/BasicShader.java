@@ -13,8 +13,8 @@ public class BasicShader extends Shader {
     public BasicShader() {
         super();
 
-        addVertexShader(ResouceLoader.loadShader("basicVertex.glsl"));
-        addFragmentShader(ResouceLoader.loadShader("basicFragment.glsl"));
+        addVertexShaderFromFile("basicVertex.glsl");
+        addFragmentShaderFromFile("basicFragment.glsl");
         compileShader();
 
         addUniform("transform");

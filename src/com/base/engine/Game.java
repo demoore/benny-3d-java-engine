@@ -13,16 +13,17 @@ public class Game {
     private Material material;
     private Camera camera;
 
-    PointLight pointLight1 = new PointLight(new BaseLight(new Vector3f(1,0.5f,0), 0.8f), new Attenuation(0,0,1), new Vector3f(-2,0,5f));
-    PointLight pointLight2 = new PointLight(new BaseLight(new Vector3f(0,0.5f,1), 0.8f), new Attenuation(0,0,1), new Vector3f(2,0,7f));
-    PointLight pointLight3 = new PointLight(new BaseLight(new Vector3f(0.5f,1,0), 0.8f), new Attenuation(0,0,1), new Vector3f(2,0,7f));
-    PointLight pointLight4 = new PointLight(new BaseLight(new Vector3f(0,1,0.5f), 0.8f), new Attenuation(0,0,1), new Vector3f(2,0,7f));
+    PointLight pointLight1 = new PointLight(new BaseLight(new Vector3f(1,0.5f,0), 0.8f), new Attenuation(0,0,1), new Vector3f(-2,0,5f), 10);
+    PointLight pointLight2 = new PointLight(new BaseLight(new Vector3f(0,0.5f,1), 0.8f), new Attenuation(0,0,1), new Vector3f(2,0,7f), 10);
+    PointLight pointLight3 = new PointLight(new BaseLight(new Vector3f(0.5f,1,0), 0.8f), new Attenuation(0,0,1), new Vector3f(2,0,7f), 10);
+    PointLight pointLight4 = new PointLight(new BaseLight(new Vector3f(0,1,0.5f), 0.8f), new Attenuation(0,0,1), new Vector3f(2,0,7f), 10);
+
+    SpotLight sLight1 = new SpotLight(new PointLight(new BaseLight(new Vector3f(1,0,0), 0.8f), new Attenuation(0,0,0.1f), new Vector3f(-2,0,7f), 30), new Vector3f(1,1,1), 0.7f);
 
     public Game() {
-//        mesh = ResouceLoader.loadMesh("cube.obj");
-        mesh = new Mesh();
+//        mesh = Mesh.loadMesh("cube.obj");
         shader = new PhongShader().getInstance();
-        material = new Material(ResouceLoader.loadTexture("test2.png"), new Vector3f(1,1,1), 1, 8);
+        material = new Material(new Texture("test2.png"), new Vector3f(1,1,1), 1, 8);
         camera = new Camera();
         transform = new Transform();
 
@@ -52,18 +53,19 @@ public class Game {
 
 
 
-        mesh.addVertices(vertices, indices, true);
+        mesh = new Mesh(vertices, indices, true);
 
 
         transform.setProjection(70f, MainComponent.WIDTH, MainComponent.HEIGHT, 0.1f, 1000);
         transform.setCamera(camera);
 
         PhongShader.setAmbientLight(new Vector3f(0.1f,0.1f,0.1f));
-        //PhongShader.setDirectionalLight( new DirectionalLight(new BaseLight(new Vector3f(1,1,1), 0.8f), new Vector3f(1,1,1)));
+        PhongShader.setDirectionalLight( new DirectionalLight(new BaseLight(new Vector3f(1,1,1), 0.1f), new Vector3f(1,2,1)));
 
 
 
         PhongShader.setPointLights(new PointLight[] {pointLight1, pointLight2, pointLight3, pointLight4});
+        PhongShader.setSpotLights(new SpotLight[] { sLight1 });
     }
 
     public void input() {
@@ -100,6 +102,9 @@ public class Game {
         pointLight2.setPosition(new Vector3f(7,0,8.0f * (float)(Math.cos(temp) + 1.0/2.0) + 10));
         pointLight3.setPosition(new Vector3f(11,0,8.0f * (float)(Math.cos(temp) + 1.0/2.0) + 10));
         pointLight4.setPosition(new Vector3f(15,0,8.0f * (float)(Math.sin(temp) + 1.0/2.0) + 10));
+
+        sLight1.getPointLight().setPosition(camera.getPos());
+        sLight1.setDirection(camera.getForward());
     }
 
     public void render() {
